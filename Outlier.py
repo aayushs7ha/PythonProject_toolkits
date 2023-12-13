@@ -16,3 +16,17 @@ def check_outliers(df):
 
 # Check for outliers after Winsorizing
 check_outliers(df_numeric)
+
+
+
+# Dealing with outliers - here's how. 
+
+from scipy.stats.mstats import winsorize
+# Function to handle outliers using Winsorizing
+def handle_outliers_winsorize(df, lower_limit=0.05, upper_limit=0.95):
+    # Convert columns to numeric, handling non-numeric values
+    #df_numeric = df.apply(pd.to_numeric, errors='coerce')
+    
+    # Winsorize numeric columns
+    df_winsorized = df_numeric.apply(lambda x: winsorize(x, limits=(lower_limit, upper_limit)).data)
+    return pd.DataFrame(df_winsorized, columns=df.columns)
