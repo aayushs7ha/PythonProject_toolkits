@@ -30,3 +30,11 @@ def handle_outliers_winsorize(df, lower_limit=0.05, upper_limit=0.95):
     # Winsorize numeric columns
     df_winsorized = df_numeric.apply(lambda x: winsorize(x, limits=(lower_limit, upper_limit)).data)
     return pd.DataFrame(df_winsorized, columns=df.columns)
+
+
+
+# Drop outliers and reset index
+
+print("Before: {} rows".format(len(train)))
+train = train.drop(outliers_to_drop, axis = 0).reset_index(drop = True)
+print("After: {} rows".format(len(train)))
